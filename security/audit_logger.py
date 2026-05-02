@@ -59,6 +59,22 @@ class AuditLogger:
         self._last_hash: str = "genesis"
         self._lock = asyncio.Lock()
         os.makedirs(os.path.dirname(log_file), exist_ok=True)
+        self._restore_state()
+
+    def _restore_state(self):
+        """Restore _seq and _last_hash from the last entry in the log file."""
+        if os.path.exists(self.log_file) and os.path.getsize(self.log_file) > 0:
+            try:
+                with open(self.log_file, "r") as f:
+                    lines = f.readlines()
+                    if lines:
+                        last_line = lines[-1].strip()
+                        if last_line:
+                            entry_dict = json.loads(last_line)
+                            self._seq = entry_dict.get("seq", 0)
+                            self._last_hash = entry_dict.get("entry_hash", "genesis")
+            except Exception as e:
+                logger.error(f"Failed to restore audit state: {e}")
 
     async def log(
         self,
