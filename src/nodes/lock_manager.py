@@ -63,7 +63,7 @@ class LockManager(BaseNode):
     """Distributed Lock Manager backed by Raft consensus."""
 
     def __init__(self):
-        super().__init__()
+        super().__init__(use_raft=True)
         self._locks: Dict[str, LockState] = {}
         self._client_requests: Dict[str, LockRequest] = {}
         self._wait_for: Dict[str, Set[str]] = defaultdict(set)

@@ -22,20 +22,23 @@ class BaseNode(ABC):
     Wires together: Raft, MessagePassing, FailureDetector.
     """
 
-    def __init__(self):
+    def __init__(self, use_raft: bool = False):
         self.node_id = config.NODE_ID
         self.peers = config.PEER_NODES
+        self.use_raft = use_raft
 
         # Shared infrastructure
         self.mp = MessagePassing(self.node_id)
-        self.raft = RaftNode(
-            node_id=self.node_id,
-            peers=self.peers,
-            election_timeout_min=config.ELECTION_TIMEOUT_MIN,
-            election_timeout_max=config.ELECTION_TIMEOUT_MAX,
-            heartbeat_interval=config.HEARTBEAT_INTERVAL,
-            apply_callback=self._on_commit,
-        )
+        self.raft = None
+        if self.use_raft:
+            self.raft = RaftNode(
+                node_id=self.node_id,
+                peers=self.peers,
+                election_timeout_min=config.ELECTION_TIMEOUT_MIN,
+                election_timeout_max=config.ELECTION_TIMEOUT_MAX,
+                heartbeat_interval=config.HEARTBEAT_INTERVAL,
+                apply_callback=self._on_commit,
+            )
         self.failure_detector = FailureDetector(
             node_id=self.node_id,
             peers=self.peers,
@@ -50,7 +53,8 @@ class BaseNode(ABC):
 
     async def start(self) -> None:
         await self.mp.start()
-        await self.raft.start()
+        if self.use_raft and self.raft:
+            await self.raft.start()
         await self.failure_detector.start()
         await self._on_start()
         self._started = True
@@ -58,7 +62,8 @@ class BaseNode(ABC):
 
     async def stop(self) -> None:
         await self.failure_detector.stop()
-        await self.raft.stop()
+        if self.use_raft and self.raft:
+            await self.raft.stop()
         await self.mp.stop()
         await self._on_stop()
         self._started = False
@@ -91,8 +96,10 @@ class BaseNode(ABC):
     # ── Helpers ───────────────────────────────────────────────────────────────
 
     def get_base_status(self) -> dict:
-        return {
+        status = {
             "node_id": self.node_id,
-            "raft": self.raft.get_status(),
             "peers": self.failure_detector.get_status(),
         }
+        if self.use_raft and self.raft:
+            status["raft"] = self.raft.get_status()
+        return status
