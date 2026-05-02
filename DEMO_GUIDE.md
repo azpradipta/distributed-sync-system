@@ -269,7 +269,7 @@ Invoke-RestMethod -Uri "http://localhost:8001/queue/ack" -Method POST -Headers $
     -Body "{`"queue`":`"orders`",`"message_id`":`"$consumedId`"}" | ConvertTo-Json
 ```
 
-**Ucapkan:** *"Pesan berhasil di-acknowledge dan statusnya menjadi completed. Pesan tidak akan dikirim ulang lagi."*
+**Ucapkan:** *"Pesan berhasil di-acknowledge dengan balasan status 'acked'. Ini berarti pesannya sudah ditandai selesai dan tidak akan dikirim ulang lagi."*
 
 ---
 
