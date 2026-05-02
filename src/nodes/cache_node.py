@@ -273,6 +273,5 @@ class CacheNode(BaseNode):
                 "misses": snapshot["counters"].get("cache_misses_total", 0),
                 "evictions": snapshot["counters"].get("cache_evictions_total", 0),
                 "invalidations": snapshot["counters"].get("cache_invalidations_total", 0),
-            },
-            "raft": self.raft.get_status(),
+            }
         }
