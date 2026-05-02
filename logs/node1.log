@@ -1,0 +1,187 @@
+2026-05-02 23:52:27,136 [INFO] __main__ � Starting node node1 on port 8001
+2026-05-02 23:52:27,140 [INFO] src.communication.message_passing � [node1] MessagePassing started
+2026-05-02 23:52:27,140 [INFO] src.communication.message_passing � [node1] MessagePassing started
+2026-05-02 23:52:27,140 [INFO] src.consensus.raft � [node1] Raft started (peers=[])
+2026-05-02 23:52:27,141 [INFO] src.communication.failure_detector � [node1] FailureDetector started, monitoring 0 peers
+2026-05-02 23:52:27,141 [INFO] src.nodes.base_node � [node1] LockManager started
+2026-05-02 23:52:27,141 [INFO] src.communication.message_passing � [node1] MessagePassing started
+2026-05-02 23:52:27,141 [INFO] src.communication.message_passing � [node1] MessagePassing started
+2026-05-02 23:52:27,141 [INFO] src.consensus.raft � [node1] Raft started (peers=[])
+2026-05-02 23:52:27,141 [INFO] src.communication.failure_detector � [node1] FailureDetector started, monitoring 0 peers
+2026-05-02 23:52:27,142 [INFO] src.nodes.queue_node � [node1] Hash ring: 1 nodes
+2026-05-02 23:52:27,143 [INFO] src.nodes.base_node � [node1] QueueNode started
+2026-05-02 23:52:27,143 [INFO] src.communication.message_passing � [node1] MessagePassing started
+2026-05-02 23:52:27,143 [INFO] src.communication.message_passing � [node1] MessagePassing started
+2026-05-02 23:52:27,143 [INFO] src.consensus.raft � [node1] Raft started (peers=[])
+2026-05-02 23:52:27,143 [INFO] src.communication.failure_detector � [node1] FailureDetector started, monitoring 0 peers
+2026-05-02 23:52:27,143 [INFO] src.nodes.base_node � [node1] CacheNode started
+2026-05-02 23:52:27,143 [INFO] __main__ � Node node1 ready!
+2026-05-02 23:52:27,357 [INFO] src.consensus.raft � [node1] Candidate term=1
+2026-05-02 23:52:27,357 [INFO] src.consensus.raft � [node1] *** BECAME LEADER for term 1 ***
+2026-05-02 23:52:27,361 [INFO] src.consensus.raft � [node1] Candidate term=1
+2026-05-02 23:52:27,362 [INFO] src.consensus.raft � [node1] *** BECAME LEADER for term 1 ***
+2026-05-02 23:52:27,463 [INFO] src.consensus.raft � [node1] Candidate term=1
+2026-05-02 23:52:27,463 [INFO] src.consensus.raft � [node1] *** BECAME LEADER for term 1 ***
+2026-05-02 23:53:30,380 [INFO] __main__ — Starting node node1 on port 8001
+2026-05-02 23:53:30,381 [INFO] src.communication.message_passing — [node1] MessagePassing started
+2026-05-02 23:53:30,381 [INFO] src.communication.message_passing — [node1] MessagePassing started
+2026-05-02 23:53:30,381 [INFO] src.consensus.raft — [node1] Raft started (peers=['http://localhost:8002', 'http://localhost:8003'])
+2026-05-02 23:53:30,381 [INFO] src.communication.failure_detector — [node1] FailureDetector started, monitoring 2 peers
+2026-05-02 23:53:30,381 [INFO] src.nodes.base_node — [node1] LockManager started
+2026-05-02 23:53:30,381 [INFO] src.communication.message_passing — [node1] MessagePassing started
+2026-05-02 23:53:30,383 [INFO] src.communication.message_passing — [node1] MessagePassing started
+2026-05-02 23:53:30,383 [INFO] src.consensus.raft — [node1] Raft started (peers=['http://localhost:8002', 'http://localhost:8003'])
+2026-05-02 23:53:30,383 [INFO] src.communication.failure_detector — [node1] FailureDetector started, monitoring 2 peers
+2026-05-02 23:53:30,385 [INFO] src.nodes.queue_node — [node1] Hash ring: 2 nodes
+2026-05-02 23:53:30,385 [INFO] src.nodes.base_node — [node1] QueueNode started
+2026-05-02 23:53:30,385 [INFO] src.communication.message_passing — [node1] MessagePassing started
+2026-05-02 23:53:30,385 [INFO] src.communication.message_passing — [node1] MessagePassing started
+2026-05-02 23:53:30,385 [INFO] src.consensus.raft — [node1] Raft started (peers=['http://localhost:8002', 'http://localhost:8003'])
+2026-05-02 23:53:30,386 [INFO] src.communication.failure_detector — [node1] FailureDetector started, monitoring 2 peers
+2026-05-02 23:53:30,386 [INFO] src.nodes.base_node — [node1] CacheNode started
+2026-05-02 23:53:30,386 [INFO] __main__ — Node node1 ready!
+2026-05-02 23:53:30,600 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:30,600 [INFO] src.consensus.raft — [node1] Candidate term=1
+2026-05-02 23:53:30,600 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:30,600 [INFO] src.consensus.raft — [node1] Candidate term=1
+2026-05-02 23:53:30,614 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:30,614 [INFO] src.consensus.raft — [node1] Candidate term=1
+2026-05-02 23:53:31,309 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:31,310 [INFO] src.consensus.raft — [node1] Candidate term=2
+2026-05-02 23:53:31,339 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:31,340 [INFO] src.consensus.raft — [node1] Candidate term=2
+2026-05-02 23:53:31,342 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:31,342 [INFO] src.consensus.raft — [node1] Candidate term=2
+2026-05-02 23:53:32,002 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:32,002 [INFO] src.consensus.raft — [node1] Candidate term=3
+2026-05-02 23:53:32,079 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:32,079 [INFO] src.consensus.raft — [node1] Candidate term=3
+2026-05-02 23:53:32,141 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:32,142 [INFO] src.consensus.raft — [node1] Candidate term=3
+2026-05-02 23:53:32,712 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:32,712 [INFO] src.consensus.raft — [node1] Candidate term=4
+2026-05-02 23:53:32,866 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:32,866 [INFO] src.consensus.raft — [node1] Candidate term=4
+2026-05-02 23:53:32,912 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:32,912 [INFO] src.consensus.raft — [node1] Candidate term=4
+2026-05-02 23:53:33,468 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8002 → suspected (misses=3)
+2026-05-02 23:53:33,469 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8003 → suspected (misses=3)
+2026-05-02 23:53:33,469 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8002 → suspected (misses=3)
+2026-05-02 23:53:33,470 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8003 → suspected (misses=3)
+2026-05-02 23:53:33,470 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8003 → suspected (misses=3)
+2026-05-02 23:53:33,470 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8002 → suspected (misses=3)
+2026-05-02 23:53:33,470 [WARNING] src.nodes.base_node — [node1] Peer http://localhost:8002 is SUSPECTED
+2026-05-02 23:53:33,470 [WARNING] src.nodes.base_node — [node1] Peer http://localhost:8003 is SUSPECTED
+2026-05-02 23:53:33,472 [WARNING] src.nodes.base_node — [node1] Peer http://localhost:8002 is SUSPECTED
+2026-05-02 23:53:33,472 [WARNING] src.nodes.base_node — [node1] Peer http://localhost:8003 is SUSPECTED
+2026-05-02 23:53:33,472 [WARNING] src.nodes.base_node — [node1] Peer http://localhost:8003 is SUSPECTED
+2026-05-02 23:53:33,472 [WARNING] src.nodes.base_node — [node1] Peer http://localhost:8002 is SUSPECTED
+2026-05-02 23:53:33,499 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:33,500 [INFO] src.consensus.raft — [node1] Candidate term=5
+2026-05-02 23:53:33,624 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:33,624 [INFO] src.consensus.raft — [node1] Candidate term=5
+2026-05-02 23:53:33,735 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:33,735 [INFO] src.consensus.raft — [node1] Candidate term=5
+2026-05-02 23:53:34,198 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:34,198 [INFO] src.consensus.raft — [node1] Candidate term=6
+2026-05-02 23:53:34,415 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:34,415 [INFO] src.consensus.raft — [node1] Candidate term=6
+2026-05-02 23:53:34,446 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:34,446 [INFO] src.consensus.raft — [node1] Candidate term=6
+2026-05-02 23:53:34,913 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:34,913 [INFO] src.consensus.raft — [node1] Candidate term=7
+2026-05-02 23:53:35,128 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:35,128 [INFO] src.consensus.raft — [node1] Candidate term=7
+2026-05-02 23:53:35,129 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:35,129 [INFO] src.consensus.raft — [node1] Candidate term=7
+2026-05-02 23:53:35,703 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:35,704 [INFO] src.consensus.raft — [node1] Candidate term=8
+2026-05-02 23:53:35,903 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:35,903 [INFO] src.consensus.raft — [node1] Candidate term=8
+2026-05-02 23:53:35,904 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:35,904 [INFO] src.consensus.raft — [node1] Candidate term=8
+2026-05-02 23:53:36,431 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:36,431 [INFO] src.consensus.raft — [node1] Candidate term=9
+2026-05-02 23:53:36,541 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8002 → dead (misses=6)
+2026-05-02 23:53:36,542 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8002 → dead (misses=6)
+2026-05-02 23:53:36,543 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8002 → dead (misses=6)
+2026-05-02 23:53:36,543 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8003 → dead (misses=6)
+2026-05-02 23:53:36,543 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8003 → dead (misses=6)
+2026-05-02 23:53:36,543 [WARNING] src.communication.failure_detector — [node1] Node http://localhost:8003 → dead (misses=6)
+2026-05-02 23:53:36,646 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:36,646 [INFO] src.consensus.raft — [node1] Candidate term=9
+2026-05-02 23:53:36,693 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:36,693 [INFO] src.consensus.raft — [node1] Candidate term=9
+2026-05-02 23:53:37,130 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:37,131 [INFO] src.consensus.raft — [node1] Candidate term=10
+2026-05-02 23:53:37,316 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:37,316 [INFO] src.consensus.raft — [node1] Candidate term=10
+2026-05-02 23:53:37,424 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:37,424 [INFO] src.consensus.raft — [node1] Candidate term=10
+2026-05-02 23:53:37,858 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:37,858 [INFO] src.consensus.raft — [node1] Candidate term=11
+2026-05-02 23:53:38,077 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:38,078 [INFO] src.consensus.raft — [node1] Candidate term=11
+2026-05-02 23:53:38,169 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:38,169 [INFO] src.consensus.raft — [node1] Candidate term=11
+2026-05-02 23:53:38,648 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:38,649 [INFO] src.consensus.raft — [node1] Candidate term=12
+2026-05-02 23:53:38,723 [INFO] __main__ — 127.0.0.1 [02/May/2026:23:53:38 +0800] "GET /health HTTP/1.1" 200 221 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.26100.8115"
+2026-05-02 23:53:38,880 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:38,880 [INFO] src.consensus.raft — [node1] Candidate term=12
+2026-05-02 23:53:38,912 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:38,912 [INFO] src.consensus.raft — [node1] Candidate term=12
+2026-05-02 23:53:39,376 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:39,376 [INFO] src.consensus.raft — [node1] Candidate term=13
+2026-05-02 23:53:39,627 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:39,627 [INFO] src.consensus.raft — [node1] Candidate term=13
+2026-05-02 23:53:39,627 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:39,627 [INFO] src.consensus.raft — [node1] Candidate term=13
+2026-05-02 23:53:40,144 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:40,145 [INFO] src.consensus.raft — [node1] Candidate term=14
+2026-05-02 23:53:40,384 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:40,384 [INFO] src.consensus.raft — [node1] Candidate term=14
+2026-05-02 23:53:40,385 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:40,385 [INFO] src.consensus.raft — [node1] Candidate term=14
+2026-05-02 23:53:40,835 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:40,835 [INFO] src.consensus.raft — [node1] Candidate term=15
+2026-05-02 23:53:41,131 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:41,131 [INFO] src.consensus.raft — [node1] Candidate term=15
+2026-05-02 23:53:41,131 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:41,131 [INFO] src.consensus.raft — [node1] Candidate term=15
+2026-05-02 23:53:41,640 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:41,640 [INFO] src.consensus.raft — [node1] Candidate term=16
+2026-05-02 23:53:41,872 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:41,872 [INFO] src.consensus.raft — [node1] Candidate term=16
+2026-05-02 23:53:41,903 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:41,903 [INFO] src.consensus.raft — [node1] Candidate term=16
+2026-05-02 23:53:42,426 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:42,427 [INFO] src.consensus.raft — [node1] Candidate term=17
+2026-05-02 23:53:42,564 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:42,565 [INFO] src.consensus.raft — [node1] Candidate term=17
+2026-05-02 23:53:42,610 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:42,610 [INFO] src.consensus.raft — [node1] Candidate term=17
+2026-05-02 23:53:43,141 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:43,142 [INFO] src.consensus.raft — [node1] Candidate term=18
+2026-05-02 23:53:43,323 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:43,328 [INFO] src.consensus.raft — [node1] Candidate term=18
+2026-05-02 23:53:43,384 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:43,384 [INFO] src.consensus.raft — [node1] Candidate term=18
+2026-05-02 23:53:43,854 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:43,856 [INFO] src.consensus.raft — [node1] Candidate term=19
+2026-05-02 23:53:44,069 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:44,070 [INFO] src.consensus.raft — [node1] Candidate term=19
+2026-05-02 23:53:44,132 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:44,133 [INFO] src.consensus.raft — [node1] Candidate term=19
+2026-05-02 23:53:44,610 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:44,610 [INFO] src.consensus.raft — [node1] Candidate term=20
+2026-05-02 23:53:44,763 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:44,763 [INFO] src.consensus.raft — [node1] Candidate term=20
+2026-05-02 23:53:44,930 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:44,930 [INFO] src.consensus.raft — [node1] Candidate term=20
+2026-05-02 23:53:45,374 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:45,375 [INFO] src.consensus.raft — [node1] Candidate term=21
+2026-05-02 23:53:45,452 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:45,453 [INFO] src.consensus.raft — [node1] Candidate term=21
+2026-05-02 23:53:45,673 [INFO] src.consensus.raft — [node1] Election timeout → starting election
+2026-05-02 23:53:45,674 [INFO] src.consensus.raft — [node1] Candidate term=21

@@ -21,88 +21,82 @@ Pastikan **Docker Desktop sudah dibuka** dan icon-nya Running di taskbar sebelum
 
 ---
 
-## BAGIAN B — START SISTEM (Lakukan tepat sebelum rekam)
+## BAGIAN B — START SISTEM (Cara Paling Mudah — Tinggal Double-Click)
 
-### B1. Start Redis
+> Saya sudah buatkan 4 file `.bat` di folder `c:\tugas3sister\distributed-sync-system`.
+> Kamu tinggal **double-click** file-file ini berurutan. Masing-masing akan membuka jendela baru otomatis.
 
-Di **Terminal 1**, jalankan:
-```powershell
-docker run -d --name redis -p 6379:6379 redis:7-alpine
+### Langkah B1 — Buka Docker Desktop dulu
+
+Pastikan icon Docker Desktop di taskbar sudah **berwarna biru/running** sebelum lanjut.
+
+### Langkah B2 — Double-click: `START_1_REDIS.bat`
+
+Buka **File Explorer** → pergi ke `c:\tugas3sister\distributed-sync-system` → double-click **`START_1_REDIS.bat`**
+
+Jendela CMD akan terbuka dan menjalankan Redis. Jika muncul tulisan `redis` dengan status `Up` → Redis berhasil.
+
+> ⚠️ Jika muncul error `docker: cannot connect` → Docker Desktop belum running, buka dulu dan tunggu sampai icon-nya aktif.
+
+> ⚠️ Jika muncul error `Conflict. The container name "/redis" is already in use` → Redis sudah pernah dijalankan sebelumnya. Jalankan perintah ini di PowerShell:
+> ```powershell
+> docker rm -f redis
+> ```
+> Lalu double-click `START_1_REDIS.bat` lagi.
+
+### Langkah B3 — Double-click: `START_2_NODE1.bat`
+
+Double-click **`START_2_NODE1.bat`** → jendela baru terbuka, Node 1 berjalan di port 8001.
+
+Kamu akan melihat log seperti:
+```
+============================================
+ NODE 1 - Port 8001
+============================================
+2026-05-02 [...] INFO ... RaftNode node1 started
+2026-05-02 [...] INFO ... Node node1 ready!
 ```
 
-Verifikasi Redis berjalan:
+### Langkah B4 — Double-click: `START_3_NODE2.bat`
+
+Double-click **`START_3_NODE2.bat`** → jendela baru terbuka, Node 2 berjalan di port 8002.
+
+### Langkah B5 — Double-click: `START_4_NODE3.bat`
+
+Double-click **`START_4_NODE3.bat`** → jendela baru terbuka, Node 3 berjalan di port 8003.
+
+### Langkah B6 — Verifikasi sistem siap
+
+Tunggu **10 detik** agar Raft election selesai, lalu buka **PowerShell baru** (Terminal untuk Demo) dan jalankan:
+
 ```powershell
-docker ps
-# Harus ada container bernama "redis" dengan status "Up"
-```
-
-> ⚠️ Jika error "docker: cannot connect": pastikan **Docker Desktop sudah dibuka dan berjalan** (ikon di taskbar)
-
-### B2. Start Node 1
-
-Di **Terminal 1**, jalankan:
-```powershell
-cd c:\tugas3sister\distributed-sync-system
-$env:NODE_ID="node1"
-$env:NODE_PORT="8001"
-$env:PEER_NODES="http://localhost:8002,http://localhost:8003"
-$env:REDIS_HOST="localhost"
-$env:API_KEY="dev-secret-key-change-in-prod"
-python main.py
-```
-
-### B3. Start Node 2
-
-Di **Terminal 2**, jalankan:
-```powershell
-cd c:\tugas3sister\distributed-sync-system
-$env:NODE_ID="node2"
-$env:NODE_PORT="8002"
-$env:PEER_NODES="http://localhost:8001,http://localhost:8003"
-$env:REDIS_HOST="localhost"
-$env:API_KEY="dev-secret-key-change-in-prod"
-python main.py
-```
-
-### B4. Start Node 3
-
-Di **Terminal 3 (atas)**, jalankan:
-```powershell
-cd c:\tugas3sister\distributed-sync-system
-$env:NODE_ID="node3"
-$env:NODE_PORT="8003"
-$env:PEER_NODES="http://localhost:8001,http://localhost:8002"
-$env:REDIS_HOST="localhost"
-$env:API_KEY="dev-secret-key-change-in-prod"
-python main.py
-```
-
-### B5. Verifikasi Sistem Siap
-
-Buka **Terminal baru (Terminal 4)** untuk demo, lalu:
-```powershell
-cd c:\tugas3sister\distributed-sync-system
 Invoke-RestMethod -Uri "http://localhost:8001/health"
 ```
 
-Jika muncul response `"status": "ok"` → sistem siap direkam.
+Jika muncul output seperti ini → **sistem siap!**
+```
+status  node_id  raft_state
+------  -------  ----------
+ok      node1    leader
+```
 
-> ⏱️ **Tunggu minimal 5-10 detik** setelah start semua node sebelum verifikasi, agar Raft election selesai.
+Jika muncul error `Connection refused` → tunggu 5 detik lagi dan coba ulang. Node butuh waktu boot.
 
 ---
 
 ## BAGIAN C — SETUP VARIABEL DEMO
 
-Di **Terminal 4 (Demo)**, jalankan ini sekali di awal sebelum demo:
+Di **PowerShell Demo** (Terminal yang kamu pakai untuk demo), jalankan baris ini **satu per satu** (tekan Enter setelah setiap baris):
 
 ```powershell
-# Simpan header ke variabel agar tidak perlu ketik ulang
-$H = @{
-    "X-API-Key"    = "dev-secret-key-change-in-prod"
-    "Content-Type" = "application/json"
-}
+$H = @{"X-API-Key" = "dev-secret-key-change-in-prod"; "Content-Type" = "application/json"}
+```
+
+```powershell
 Write-Host "Header siap!" -ForegroundColor Green
 ```
+
+Setelah muncul `Header siap!` → lanjut ke demo.
 
 ---
 
