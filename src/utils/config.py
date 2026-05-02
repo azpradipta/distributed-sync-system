@@ -29,9 +29,9 @@ class Config:
     REDIS_PASSWORD: str = os.getenv("REDIS_PASSWORD", "")
 
     # ── Raft Timing (seconds) ────────────────────────────────────────────────
-    ELECTION_TIMEOUT_MIN: float = float(os.getenv("ELECTION_TIMEOUT_MIN", "0.15"))
-    ELECTION_TIMEOUT_MAX: float = float(os.getenv("ELECTION_TIMEOUT_MAX", "0.30"))
-    HEARTBEAT_INTERVAL: float = float(os.getenv("HEARTBEAT_INTERVAL", "0.05"))
+    ELECTION_TIMEOUT_MIN: float = float(os.getenv("ELECTION_TIMEOUT_MIN", "1.5"))
+    ELECTION_TIMEOUT_MAX: float = float(os.getenv("ELECTION_TIMEOUT_MAX", "3.0"))
+    HEARTBEAT_INTERVAL: float = float(os.getenv("HEARTBEAT_INTERVAL", "0.5"))
 
     # ── Distributed Lock ─────────────────────────────────────────────────────
     LOCK_TIMEOUT: float = float(os.getenv("LOCK_TIMEOUT", "30.0"))
