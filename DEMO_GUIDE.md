@@ -186,7 +186,7 @@ $r1 = Invoke-RestMethod -Uri "http://localhost:8001/lock/acquire" -Method POST -
 $r1 | ConvertTo-Json
 ```
 
-**Ucapkan:** *"Lock berhasil! Status 'acquired', artinya service-A sekarang memegang exclusive lock pada resource database-1. Sekarang saya coba acquire lock yang sama dari Node 2 dengan client berbeda."*
+**Ucapkan:** *"Lock berhasil! Status 'acquired', artinya service-A memegang exclusive lock. Sekarang mari kita lihat kecerdasan algoritma Raft. Saya coba acquire lock yang sama dari Node 2 (yang merupakan follower) menggunakan service-B."*
 
 ```powershell
 $r2 = Invoke-RestMethod -Uri "http://localhost:8002/lock/acquire" -Method POST -Headers $H `
@@ -194,7 +194,15 @@ $r2 = Invoke-RestMethod -Uri "http://localhost:8002/lock/acquire" -Method POST -
 $r2 | ConvertTo-Json
 ```
 
-**Ucapkan:** *"Request service-B masuk ke waiting queue karena ada exclusive lock aktif. Ini perilaku yang benar — exclusive lock memblokir semua request lain. Mari kita lihat status lock table."*
+**Ucapkan:** *"Perhatikan, Node 2 menolak dengan status 'not_leader' dan langsung memberi tahu bahwa Node 1 adalah leadernya. Ini adalah fitur Raft Leader Redirection! Sekarang kita turuti dan kirim ulang request service-B ke Node 1."*
+
+```powershell
+$r3 = Invoke-RestMethod -Uri "http://localhost:8001/lock/acquire" -Method POST -Headers $H `
+    -Body '{"lock_id":"database-1","client_id":"service-B","lock_type":"shared"}'
+$r3 | ConvertTo-Json
+```
+
+**Ucapkan:** *"Nah, di Node 1 statusnya 'timeout' atau belum berhasil karena exclusive lock masih dipegang service-A. Tapi request service-B tidak hilang, melainkan masuk ke waiting queue. Mari kita lihat status lock table-nya."*
 
 ```powershell
 Invoke-RestMethod -Uri "http://localhost:8001/lock/status" -Headers $H | ConvertTo-Json -Depth 4
