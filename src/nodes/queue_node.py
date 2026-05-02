@@ -221,7 +221,7 @@ class QueueNode(BaseNode):
         await self._redis.hset(key, "status", MessageStatus.COMPLETED.value)
         await self._redis.zrem(f"queue:{queue}:in_flight", message_id)
         logger.info(f"[{self.node_id}] ACK {message_id}")
-        return {"status": "acked", "message_id": message_id}
+        return {"status": "completed", "message_id": message_id}
 
     # ── Redelivery Loop (At-Least-Once) ───────────────────────────────────────
 
