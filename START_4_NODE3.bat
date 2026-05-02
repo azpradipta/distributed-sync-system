@@ -9,6 +9,9 @@ set PEER_NODES=http://localhost:8001,http://localhost:8002
 set REDIS_HOST=localhost
 set API_KEY=dev-secret-key-change-in-prod
 set LOG_LEVEL=INFO
+set ELECTION_TIMEOUT_MIN=1.5
+set ELECTION_TIMEOUT_MAX=3.0
+set HEARTBEAT_INTERVAL=0.5
 echo ============================================
 echo  NODE 3 - Port 8003
 echo ============================================
