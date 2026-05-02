@@ -1,11 +1,10 @@
 # Distributed Sync System
 
-> **Tugas 2 - Sistem Parallel dan Terdistribusi**
+> **Tugas 3 - Sistem Parallel dan Terdistribusi**
 > Implementasi Distributed Synchronization System
 >
 > **Nama**: Arya Zaky Pradipta
 > **NIM**: 11231013
-> **Deadline**: 3 Mei 2026
 
 ---
 
