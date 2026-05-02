@@ -1,0 +1,284 @@
+openapi: "3.0.3"
+info:
+  title: Distributed Sync System API
+  description: |
+    REST API for the Distributed Synchronization System.
+    Implements Raft-backed distributed locks, consistent-hashing queues,
+    and MESI cache coherence across a 3-node cluster.
+  version: "1.0.0"
+  contact:
+    name: Arya Zaky Pradipta
+    email: 11231013@student.example.ac.id
+
+servers:
+  - url: http://localhost:8001
+    description: Node 1 (default leader candidate)
+  - url: http://localhost:8002
+    description: Node 2
+  - url: http://localhost:8003
+    description: Node 3
+
+security:
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    LockAcquireRequest:
+      type: object
+      required: [lock_id, client_id]
+      properties:
+        lock_id:    { type: string, example: "resource-db-1" }
+        client_id:  { type: string, example: "service-A" }
+        lock_type:  { type: string, enum: [shared, exclusive], default: exclusive }
+        timeout:    { type: number, format: float, example: 30.0 }
+
+    LockAcquireResponse:
+      type: object
+      properties:
+        status:     { type: string, enum: [acquired, error] }
+        request_id: { type: string, format: uuid }
+        lock_id:    { type: string }
+        reason:     { type: string }
+        leader:     { type: string }
+
+    LockReleaseRequest:
+      type: object
+      required: [lock_id, client_id]
+      properties:
+        lock_id:   { type: string }
+        client_id: { type: string }
+
+    ProduceRequest:
+      type: object
+      required: [queue, payload]
+      properties:
+        queue:       { type: string, example: "events" }
+        payload:     { type: object }
+        producer_id: { type: string, example: "svc-producer" }
+
+    ConsumeRequest:
+      type: object
+      required: [queue]
+      properties:
+        queue:       { type: string }
+        consumer_id: { type: string }
+        ack_timeout: { type: number, format: float, default: 30.0 }
+
+    AckRequest:
+      type: object
+      required: [queue, message_id]
+      properties:
+        queue:      { type: string }
+        message_id: { type: string, format: uuid }
+
+    CacheWriteRequest:
+      type: object
+      required: [value]
+      properties:
+        value: {}
+
+    HealthResponse:
+      type: object
+      properties:
+        status:     { type: string }
+        node_id:    { type: string }
+        raft_state: { type: string, enum: [follower, candidate, leader] }
+
+paths:
+  /health:
+    get:
+      summary: Node health check
+      security: []
+      tags: [System]
+      responses:
+        "200": { description: OK, content: { application/json: { schema: { $ref: "#/components/schemas/HealthResponse" } } } }
+
+  /raft/status:
+    get:
+      summary: Raft consensus state
+      tags: [Raft]
+      responses:
+        "200": { description: Raft status object }
+
+  /raft/vote:
+    post:
+      summary: "[Internal] RequestVote RPC"
+      tags: [Raft Internal]
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                term:           { type: integer }
+                candidate_id:   { type: string }
+                last_log_index: { type: integer }
+                last_log_term:  { type: integer }
+      responses:
+        "200": { description: VoteResponse }
+
+  /raft/append:
+    post:
+      summary: "[Internal] AppendEntries RPC"
+      tags: [Raft Internal]
+      security: []
+      responses:
+        "200": { description: AppendEntriesResponse }
+
+  /lock/acquire:
+    post:
+      summary: Acquire a distributed lock
+      tags: [Lock Manager]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LockAcquireRequest" }
+      responses:
+        "200":
+          description: Lock acquired or error
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/LockAcquireResponse" }
+        "401": { description: Unauthorized }
+
+  /lock/release:
+    post:
+      summary: Release a distributed lock
+      tags: [Lock Manager]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LockReleaseRequest" }
+      responses:
+        "200": { description: Lock released }
+
+  /lock/status:
+    get:
+      summary: Get current lock table
+      tags: [Lock Manager]
+      responses:
+        "200": { description: All locks and their holders }
+
+  /queue/produce:
+    post:
+      summary: Produce a message to the distributed queue
+      tags: [Distributed Queue]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ProduceRequest" }
+      responses:
+        "200": { description: Message produced, returns message_id }
+
+  /queue/consume:
+    post:
+      summary: Consume one message from the queue (at-least-once)
+      tags: [Distributed Queue]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ConsumeRequest" }
+      responses:
+        "200": { description: Message or empty }
+
+  /queue/ack:
+    post:
+      summary: Acknowledge message processing
+      tags: [Distributed Queue]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AckRequest" }
+      responses:
+        "200": { description: Message acknowledged }
+
+  /queue/status:
+    get:
+      summary: Queue depth and metrics
+      tags: [Distributed Queue]
+      responses:
+        "200": { description: Queue statistics }
+
+  /cache/{key}:
+    get:
+      summary: Read from distributed cache (MESI)
+      tags: [Cache Coherence]
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Cache hit/miss with value and MESI state }
+
+    put:
+      summary: Write to distributed cache (triggers MESI invalidation)
+      tags: [Cache Coherence]
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CacheWriteRequest" }
+      responses:
+        "200": { description: Written, state=M }
+
+    delete:
+      summary: Invalidate a cache key
+      tags: [Cache Coherence]
+      parameters:
+        - name: key
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Invalidated }
+
+  /cache/status:
+    get:
+      summary: Cache metrics (hit rate, evictions, MESI stats)
+      tags: [Cache Coherence]
+      responses:
+        "200": { description: Cache statistics }
+
+  /metrics:
+    get:
+      summary: System-wide metrics (counters, gauges, histograms)
+      tags: [System]
+      responses:
+        "200": { description: Metrics snapshot }
+
+  /audit/logs:
+    get:
+      summary: Recent audit log entries
+      tags: [Security]
+      parameters:
+        - name: n
+          in: query
+          schema: { type: integer, default: 50 }
+      responses:
+        "200": { description: List of audit entries }
+
+  /audit/verify:
+    get:
+      summary: Verify audit log hash chain integrity
+      tags: [Security]
+      responses:
+        "200": { description: Integrity check result }

@@ -1,0 +1,40 @@
+# ── Stage 1: Builder ──────────────────────────────────────────────────────────
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
+
+# ── Stage 2: Runtime ──────────────────────────────────────────────────────────
+FROM python:3.11-slim
+
+LABEL maintainer="Arya Zaky Pradipta <11231013>"
+LABEL description="Distributed Sync System Node"
+
+WORKDIR /app
+
+# Copy installed packages from builder
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Copy application source
+COPY src/       ./src/
+COPY security/  ./security/
+COPY main.py    .
+
+# Create required directories
+RUN mkdir -p logs security/certs
+
+# Non-root user for security
+RUN groupadd -r appuser && useradd -r -g appuser appuser \
+    && chown -R appuser:appuser /app
+USER appuser
+
+# Health check
+HEALTHCHECK --interval=10s --timeout=5s --start-period=15s --retries=3 \
+    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:${NODE_PORT:-8001}/health')" || exit 1
+
+EXPOSE ${NODE_PORT:-8001}
+
+CMD ["python", "-u", "main.py"]

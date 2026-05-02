@@ -1,0 +1,143 @@
+version: "3.9"
+
+# ── Networks ──────────────────────────────────────────────────────────────────
+networks:
+  cluster-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+# ── Volumes ───────────────────────────────────────────────────────────────────
+volumes:
+  redis-data:
+  node1-logs:
+  node2-logs:
+  node3-logs:
+
+# ── Services ─────────────────────────────────────────────────────────────────
+services:
+
+  # ── Redis (Shared Persistence Layer) ───────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: dss-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      cluster-net:
+        ipv4_address: 172.20.0.10
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # ── Node 1 (Initial Leader Candidate) ───────────────────────────────────────
+  node1:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.node
+    container_name: dss-node1
+    restart: unless-stopped
+    env_file:
+      - ../.env.example
+    environment:
+      NODE_ID: node1
+      NODE_HOST: "0.0.0.0"
+      NODE_PORT: "8001"
+      PEER_NODES: "http://node2:8002,http://node3:8003"
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      LOG_LEVEL: INFO
+      API_KEY: dev-secret-key-change-in-prod
+    ports:
+      - "8001:8001"
+    volumes:
+      - node1-logs:/app/logs
+    networks:
+      cluster-net:
+        ipv4_address: 172.20.0.11
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8001/health')\""]
+      interval: 10s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+  # ── Node 2 ───────────────────────────────────────────────────────────────────
+  node2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.node
+    container_name: dss-node2
+    restart: unless-stopped
+    env_file:
+      - ../.env.example
+    environment:
+      NODE_ID: node2
+      NODE_HOST: "0.0.0.0"
+      NODE_PORT: "8002"
+      PEER_NODES: "http://node1:8001,http://node3:8003"
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      LOG_LEVEL: INFO
+      API_KEY: dev-secret-key-change-in-prod
+    ports:
+      - "8002:8002"
+    volumes:
+      - node2-logs:/app/logs
+    networks:
+      cluster-net:
+        ipv4_address: 172.20.0.12
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8002/health')\""]
+      interval: 10s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+  # ── Node 3 ───────────────────────────────────────────────────────────────────
+  node3:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.node
+    container_name: dss-node3
+    restart: unless-stopped
+    env_file:
+      - ../.env.example
+    environment:
+      NODE_ID: node3
+      NODE_HOST: "0.0.0.0"
+      NODE_PORT: "8003"
+      PEER_NODES: "http://node1:8001,http://node2:8002"
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      LOG_LEVEL: INFO
+      API_KEY: dev-secret-key-change-in-prod
+    ports:
+      - "8003:8003"
+    volumes:
+      - node3-logs:/app/logs
+    networks:
+      cluster-net:
+        ipv4_address: 172.20.0.13
+    depends_on:
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8003/health')\""]
+      interval: 10s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
