@@ -202,7 +202,7 @@ $r3 = Invoke-RestMethod -Uri "http://localhost:8001/lock/acquire" -Method POST -
 $r3 | ConvertTo-Json
 ```
 
-**Ucapkan:** *"Nah, di Node 1 statusnya 'timeout' atau belum berhasil karena exclusive lock masih dipegang service-A. Tapi request service-B tidak hilang, melainkan masuk ke waiting queue. Mari kita lihat status lock table-nya."*
+**Ucapkan:** *"Nah, Node 1 langsung merespon 'acquired' yang artinya request berhasil diterima oleh sistem Raft. Tapi mari kita buktikan bahwa service-B belum benar-benar mendapatkan lock-nya, melainkan masuk ke waiting queue karena lock masih dipegang service-A."*
 
 ```powershell
 Invoke-RestMethod -Uri "http://localhost:8001/lock/status" -Headers $H | ConvertTo-Json -Depth 4
