@@ -240,12 +240,12 @@ def create_app() -> web.Application:
     app.router.add_post("/queue/store", queue_store_internal)
     app.router.add_get("/queue/status", queue_status)
 
+    app.router.add_get("/cache/status", cache_status)
     app.router.add_get("/cache/{key}", cache_read)
     app.router.add_put("/cache/{key}", cache_write)
     app.router.add_delete("/cache/{key}", cache_invalidate_endpoint)
     app.router.add_get("/cache/peek/{key}", cache_peek)
     app.router.add_post("/cache/invalidate/{key}", cache_invalidate_rpc)
-    app.router.add_get("/cache/status", cache_status)
 
     app.router.add_get("/metrics", get_metrics)
     app.router.add_get("/audit/logs", audit_logs)
