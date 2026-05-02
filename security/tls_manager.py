@@ -131,8 +131,14 @@ async def auth_middleware(request: web.Request, handler: Callable) -> web.Respon
     path = request.path
     method = request.method
 
-    # Bypass auth for internal Raft RPCs and health check
-    if path.startswith("/raft/") or path == "/health":
+    # Bypass auth for internal RPCs and health check
+    if (
+        path.startswith("/raft/") or 
+        path.startswith("/cache/peek/") or 
+        path.startswith("/cache/invalidate/") or 
+        path == "/queue/store" or 
+        path == "/health"
+    ):
         return await handler(request)
 
     api_key = request.headers.get("X-API-Key", "")
