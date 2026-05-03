@@ -154,13 +154,15 @@ distributed-sync-system/
 
 ## Documentation
 
+- 📄 **[Laporan Lengkap PDF (SISTER A)](Tugas%203_11231013_SISTER%20A.pdf)**
+- 📄 **[Laporan Lengkap PDF (Arya Zaky Pradipta)](report_11231013_Arya%20Zaky%20Pradipta.pdf)**
 - 📐 [Architecture](docs/architecture.md)
 - 📋 [API Spec](docs/api_spec.yaml)
 - 🚀 [Deployment Guide](docs/deployment_guide.md)
 
 ## Video Demo
 
-> Link YouTube: *[akan diisi setelah recording]*
+> **Link YouTube:** [Tonton Demo Sistem SISTER A](https://youtu.be/teDpF9pQ_3U?si=Sygbgjy26QIezaYE)
 
 ## Tech Stack
 
