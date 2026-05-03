@@ -8,6 +8,14 @@
 
 ---
 
+## Documentation & Demo
+
+- 📄 **[Laporan Lengkap PDF](report_11231013_Arya%20Zaky%20Pradipta.pdf)** (Alternatif: [Google Drive](https://drive.google.com/file/d/1-58vqnoTUhxDtU2dCZkgsMKMSy8rRbIL/view?usp=drive_link))
+- 🎥 **[Video Demo YouTube](https://youtu.be/teDpF9pQ_3U?si=Sygbgjy26QIezaYE)**
+- 📐 [Architecture](docs/architecture.md)
+- 📋 [API Spec](docs/api_spec.yaml)
+- 🚀 [Deployment Guide](docs/deployment_guide.md)
+
 ## Overview
 
 Sistem sinkronisasi terdistribusi yang mengimplementasikan:
@@ -152,17 +160,7 @@ distributed-sync-system/
 └── .env.example
 ```
 
-## Documentation
 
-- 📄 **[Laporan Lengkap PDF (SISTER A)](Tugas%203_11231013_SISTER%20A.pdf)**
-- 📄 **[Laporan Lengkap PDF (Arya Zaky Pradipta)](report_11231013_Arya%20Zaky%20Pradipta.pdf)**
-- 📐 [Architecture](docs/architecture.md)
-- 📋 [API Spec](docs/api_spec.yaml)
-- 🚀 [Deployment Guide](docs/deployment_guide.md)
-
-## Video Demo
-
-> **Link YouTube:** [Tonton Demo Sistem SISTER A](https://youtu.be/teDpF9pQ_3U?si=Sygbgjy26QIezaYE)
 
 ## Tech Stack
 
